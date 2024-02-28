@@ -38,7 +38,7 @@ import static cn.hutool.core.util.ArrayUtil.append;
 @Slf4j
 @CrossOrigin
 public class TrafficController {
-    Logger logger = LoggerFactory.getLogger(RoutePlanningUtil.class);
+    Logger logger = LoggerFactory.getLogger(TrafficController.class);
 
     private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**

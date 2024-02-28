@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="add BaiDuApiCaller.java&#10;remove useless file">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/PluginConfigurationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/.well-known/ai-plugin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/.well-known/example.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/.well-known/openapi.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/BaiDuApiCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/BaiDuApiCaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/YiYanApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/YiYanApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/TrafficController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/TrafficController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/model/dto/RoutePlanningRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/model/dto/RoutePlanningRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/RoutePlanningUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/YiYanApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/YiYanApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/controller/TrafficController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/controller/TrafficController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/model/dto/RoutePlanningRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/model/dto/RoutePlanningRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/HttpGet$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/HttpGet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/RoutePlanningUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/RoutePlanningUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/RoutePlanningUtil.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,12 +75,12 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.YiYanApplication.executor": "Run",
+    "Spring Boot.YiYanApplication.executor": "Debug",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "Api重构",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dinpper/Desktop/2/yiyan",
+    "last_opened_file_path": "E:/wxyy/yiyan/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -98,6 +98,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\wxyy\yiyan\src\main\resources" />
       <recent name="D:\work\student\3shang\yiyan" />
       <recent name="D:\work\student\3shang\yiyan\src\main\resources" />
       <recent name="D:\work\student\3shang\WEB_hard\webFinal" />

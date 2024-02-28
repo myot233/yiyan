@@ -1,0 +1,17 @@
+version: 0.0.1
+examples:
+      - context: # 对话历史
+          - role: user
+            content: 我处在的城市为”杭州市“，我想从”钱王财富中心”到“农林大学”，我需要路程最短的方案
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: routePlanning
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个需要给用户规划路径方案的需求
+              requestArguments: 
+                origin: 钱王财富中心
+                destination: 农林大学
+                region: 杭州市
+                tactics: 3

@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+    title: 驾途无忧
+    description: 实时、智能的交通助手，可以导航、规划、查询路况和天气。
+    version: "v1"
+servers:
+    - url: http://127.0.0.1:8104
+paths:
+    /route_planning:
+        post:
+            operationId: routePlanning
+            summary: 根据用户给出的起始点、所在城市、交通方式、出行需求，进行路线规划，指导用户到达目的地
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/routePlanning"
+            responses:
+                "200":
+                    description: 路线规划成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/messageResponse"
+
+components:
+    schemas:
+        # 请求URL
+        routePlanning:
+            type: object
+            # 必选字段
+            required: [region, origin, destination,way]
+            properties:
+                # 字段名
+                way:
+                    # 类型
+                    type: int
+                    # 描述
+                    description: driving为0,riding为1,walking为2transit为3
+                region:
+                    type: string
+                    description: 用户所在城市
+                origin:
+                    type: string
+                    description: 起点地名
+                destination:
+                    type: string
+                    description: 终点地名
+                plateNumber:
+                    type: string
+                    description: 车牌号
+                tactics:
+                    type: int
+                    description: 0：时间最短1：不走高速,2：躲避拥堵,3：最短距离,4：花费最少,5：大路优先
+
+        messageResponse:
+            type: object
+            required: [message]
+            properties:
+                code:
+                    type: integer
+                    description: 返回的代码,不是0就是有问题的
+                data:
+                    type: object
+                    properties:
+                        message: 
+                            type: string
+                            description: 各种交通相关的信息
+                        mapUrl:
+                            type: string
+                            description: 存放图片的url地址
+                    
