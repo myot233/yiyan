@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="百度翻译接口实现but批量翻译不行">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/BaiDuApiCaller.java" afterDir="false" />
+    <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="add BaiDuApiCaller.java&#10;remove useless file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/BaiDuApiCaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/BaiDuApiCaller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/TrafficController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/TrafficController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/HttpGet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/RoutePlanningUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/RoutePlanningUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/model/dto/RoutePlanningRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/model/dto/RoutePlanningRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/controller/TrafficController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/controller/TrafficController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/model/dto/RoutePlanningRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/model/dto/RoutePlanningRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/HttpGet$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/HttpGet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/RoutePlanningUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/yiyan/util/RoutePlanningUtil.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +75,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.YiYanApplication.executor": "Debug",
+    "Spring Boot.YiYanApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "git-widget-placeholder": "Api重构",
@@ -86,6 +92,7 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "spring.configuration.checksum": "55cf051800a339cc81c66ba78c37e4d6",
     "vue.rearranger.settings.migration": "true",
+    "应用程序.BaiDuApiCaller.executor": "Run",
     "应用程序.LocationMapUtil.executor": "Run"
   }
 }]]></component>
@@ -100,7 +107,7 @@
       <recent name="D:\work\student\3shang\WEB_hard\webFinal" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.LocationMapUtil">
+  <component name="RunManager" selected="Spring Boot.YiYanApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="webFinal" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -181,6 +188,19 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
+    <configuration name="BaiDuApiCaller" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.baidu.BaiDuApiCaller" />
+      <module name="yiyan-plug-in" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.baidu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CityWeatherUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.yiyan.util.CityWeatherUtils" />
       <module name="yiyan-plug-in" />
@@ -217,22 +237,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WebFinalApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webFinal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.yiyan.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.webfinal" />
-      <option name="MAIN_CLASS_NAME" value="com.example.webfinal.WebFinalApplicationTests" />
-      <option name="METHOD_NAME" value="contextLoads" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -385,20 +389,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.WebFinalApplicationTests.contextLoads" />
       <item itemvalue="Spring Boot.YiyanApplication" />
       <item itemvalue="Spring Boot.YiYanApplication" />
+      <item itemvalue="应用程序.BaiDuApiCaller" />
       <item itemvalue="应用程序.LocationMapUtil" />
       <item itemvalue="应用程序.CityWeatherUtils" />
       <item itemvalue="应用程序.RoutePlanningUtil" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.YiYanApplication" />
+        <item itemvalue="应用程序.BaiDuApiCaller" />
         <item itemvalue="应用程序.RoutePlanningUtil" />
         <item itemvalue="应用程序.CityWeatherUtils" />
         <item itemvalue="应用程序.LocationMapUtil" />
-        <item itemvalue="Spring Boot.YiYanApplication" />
-        <item itemvalue="JUnit.WebFinalApplicationTests.contextLoads" />
       </list>
     </recent_temporary>
   </component>
@@ -468,7 +472,7 @@
       <workItem from="1708760259960" duration="9112000" />
       <workItem from="1709120060125" duration="4962000" />
       <workItem from="1709125384323" duration="185000" />
-      <workItem from="1709125579136" duration="2487000" />
+      <workItem from="1709125579136" duration="7705000" />
     </task>
     <task id="LOCAL-00001" summary="新闻搜索开发">
       <created>1702868974844</created>
@@ -569,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709125588416</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="add BaiDuApiCaller.java&#10;remove useless file">
+      <option name="closed" value="true" />
+      <created>1709128151794</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1709128151794</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -598,7 +610,8 @@
     <MESSAGE value="qhm的python解释器" />
     <MESSAGE value="热榜新闻接口的更新爬取和接口实现" />
     <MESSAGE value="百度翻译接口实现but批量翻译不行" />
-    <option name="LAST_COMMIT_MESSAGE" value="百度翻译接口实现but批量翻译不行" />
+    <MESSAGE value="add BaiDuApiCaller.java&#10;remove useless file" />
+    <option name="LAST_COMMIT_MESSAGE" value="add BaiDuApiCaller.java&#10;remove useless file" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -1,5 +1,7 @@
 package com.example.yiyan.model.dto;
 
+import com.example.yiyan.baidu.BaiDuApiCaller;
+import com.google.gson.JsonObject;
 import lombok.Data;
 
 @Data
@@ -10,6 +12,7 @@ public class RoutePlanningRequest {
 
     float destinationLat;
     float destinationLng;
+    String region;
     String origin;
     String destination;
     String originUid;
@@ -27,11 +30,31 @@ public class RoutePlanningRequest {
      */
     String tactics;
 
-    public String getOriginPoint() {
+    public String getOriginPoint(BaiDuApiCaller caller) throws Exception {
+
+        JsonObject pos =  caller.requestPlaceLocation(origin,region);
+        JsonObject location =  pos.getAsJsonObject()
+                .getAsJsonArray("results")
+                .get(0)
+                .getAsJsonObject()
+                .get("location")
+                .getAsJsonObject();
+        originLat = location.get("lat").getAsFloat();
+        originLng = location.get("lng").getAsFloat();
         return originLat + "," + originLng;
     }
 
-    public String getDestinationPoint() {
+    public String getDestinationPoint(BaiDuApiCaller caller) throws Exception {
+
+        JsonObject pos =  caller.requestPlaceLocation(destination,region);
+        JsonObject location =  pos.getAsJsonObject()
+                .getAsJsonArray("results")
+                .get(0)
+                .getAsJsonObject()
+                .get("location")
+                .getAsJsonObject();
+        destinationLat = location.get("lat").getAsFloat();
+        destinationLng = location.get("lng").getAsFloat();
         return destinationLat + "," + destinationLng;
     }
 

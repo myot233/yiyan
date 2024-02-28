@@ -2,6 +2,7 @@ package com.example.yiyan.baidu;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriUtils;
@@ -12,6 +13,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BaiDuApiCaller {
@@ -23,7 +25,9 @@ public class BaiDuApiCaller {
 
     private static final String ROAD_CONDITION_URL = "https://api.map.baidu.com/traffic/v1/road?";
 
-    private static final String ROUTE_PLANNING_URL = "https://api.map.baidu.com/directionlite/v1/?";
+    private static final String ROUTE_PLANNING_URL = "https://api.map.baidu.com/directionlite/v1/";
+
+    private static final String PLACE_LOCATION_URL = "https://api.map.baidu.com/place/v2/search?";
 
     private final Gson gson = new Gson();
     private final Logger logger = LoggerFactory.getLogger(BaiDuApiCaller.class);
@@ -89,6 +93,20 @@ public class BaiDuApiCaller {
         return requestGetAK(ROUTE_PLANNING_URL,param);
     }
 
+    public JsonObject requestPlaceLocation(String origin,String region)throws Exception{
+        Map<String,String> params = new LinkedHashMap<>();
+        params.put("query",origin);
+        params.put("region",region);
+        params.put("output","json");
+        params.put("ak",AK);
+        return requestGetAK(PLACE_LOCATION_URL,params,JsonObject.class);
+    }
 
+    public static void main(String[] args) throws Exception {
+        BaiDuApiCaller caller = new BaiDuApiCaller();
+        JsonObject result = caller.requestPlaceLocation("杭州师范大学","杭州市");
+        System.out.println(result.getAsJsonObject().getAsJsonArray("results").get(0));
+
+    }
 
 }

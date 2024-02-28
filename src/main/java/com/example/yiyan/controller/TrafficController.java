@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static cn.hutool.core.util.ArrayUtil.append;
+
 /**
  * 此类用于定义TrafficController类
  * @Version 1.0
@@ -33,6 +36,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@CrossOrigin
 public class TrafficController {
     Logger logger = LoggerFactory.getLogger(RoutePlanningUtil.class);
 
@@ -94,8 +98,8 @@ public class TrafficController {
         String Message = "出现未知错误";
         String mapUrl = "";
         Map<String,String> params = new LinkedHashMap<>();
-        params.put("origin", request.getOriginPoint());
-        params.put("destination", request.getDestinationPoint());
+        params.put("origin", request.getOriginPoint(caller));
+        params.put("destination", request.getDestinationPoint(caller));
         params.put("ak", BaiDuApiCaller.AK);
         try {
             JsonObject jsonObject = caller.requestRoutePlanning(request.getWay(),params);
@@ -106,24 +110,36 @@ public class TrafficController {
                 JsonElement routesElement = result.getAsJsonArray("routes").get(0);
                 JsonObject routesObject = routesElement.getAsJsonObject();
                 JsonArray steps = routesObject.getAsJsonArray("steps");
-                // 拼接路径规划的基本信息
-                Message = "起点：" + request.getOrigin() + "," +
-                        "终点：" + request.getDestination() + "," +
-                        "距离：" + routesObject.get("distance") + "米," +
-                        "耗时：" + routesObject.get("duration") + "秒," +
-                        "路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + "," +
-                        "导航规划路径:";
+                // 改用StringBuffer拼接路径规划的基本信息
+//                Message = "起点：" + request.getOrigin() + "," +
+//                        "终点：" + request.getDestination() + "," +
+//                        "距离：" + routesObject.get("distance") + "米," +
+//                        "耗时：" + routesObject.get("duration") + "秒," +
+//                        "路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + "," +
+//                        "导航规划路径:";
+                StringBuilder stringBuffer = new StringBuilder("起点");
+                stringBuffer
+                        .append(request.getOrigin()+",")
+                        .append("终点：" + request.getDestination() + ",")
+                        .append("距离：" + routesObject.get("distance") + "米,")
+                        .append("耗时：" + routesObject.get("duration") + "秒,");
+                        //.append("路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + ",")
+                        if(routesObject.get("traffic_condition") != null){
+                            stringBuffer.append("路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + ",");
+                        }
+                        stringBuffer.append("导航规划路径:");
                 // 拼接详细路径和绘制导航静态图
                 List<ArrayList<Float>> paths = new ArrayList<>();
                 for (JsonElement step :
                         steps) {
                     JsonObject stepObject = step.getAsJsonObject();
-                    Message += stepObject.get("instruction") + ",";
+                    stringBuffer.append(stepObject.get("instruction")).append(",");
                     ArrayList<Float> pathPoint = new ArrayList<>();
                     pathPoint.add(stepObject.get("start_location").getAsJsonObject().get("lat").getAsFloat());
                     pathPoint.add(stepObject.get("start_location").getAsJsonObject().get("lng").getAsFloat());
                     paths.add(pathPoint);
                 }
+                Message = stringBuffer.toString();
                 JsonElement lastStep = steps.get(steps.size() - 1);
                 JsonObject lastStepObject = lastStep.getAsJsonObject();
                 ArrayList<Float> pathPoint = new ArrayList<>();
@@ -132,7 +148,7 @@ public class TrafficController {
                 paths.add(pathPoint);
                 DrawMapUtil drawMapUtil = new DrawMapUtil();
                 //请求地图绘制静态图的url，todo
-                //String map = DrawMapUtil.getMap(paths);
+                String map = DrawMapUtil.getMap(paths);
                 //System.out.println(map);
             }
         } catch (com.google.gson.JsonSyntaxException e) {
@@ -142,6 +158,9 @@ public class TrafficController {
         Map response = new LinkedHashMap<>();
         response.put("message", Message);
         response.put("mapUrl", mapUrl);
+        response.put("prompt", "message中包含关于路线的距离、耗时、路况、导航规划路径等信息，请你整合数据，以一种对用户友好的格式展示给用户。" +
+                "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
+                "比如result是 http://www.baidu.com, 你应该返回![词云](http://www.baidu.com) ");
         logger.info(Message);
         return ResultUtils.success(response);
     }
