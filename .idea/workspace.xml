@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="百度翻译接口实现but批量翻译不行" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a1d4b4ff-91f1-42ad-b447-980d59c742ae" />
+        <option name="url" value="https://github.com/TipD4/webFinal.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../tool/apache-maven-3.9.2" />
+        <option name="userSettingsFile" value="D:\tool\apache-maven-3.9.2\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2ZhIEUMPX77IcVG7ek9Gk8RcsMT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.YiYanApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dinpper/Desktop/2/yiyan&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;55cf051800a339cc81c66ba78c37e4d6&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.LocationMapUtil.executor&quot;: &quot;Run&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\student\3shang\yiyan" />
+      <recent name="D:\work\student\3shang\yiyan\src\main\resources" />
+      <recent name="D:\work\student\3shang\WEB_hard\webFinal" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\work\student\3shang\yiyan\src\main\resources" />
+      <recent name="D:\work\student\3shang\WEB_hard\webFinal" />
+    </key>
+  </component>
+  <component name="RunManager" selected="应用程序.LocationMapUtil">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="webFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="webFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="webFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="webFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="webFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CityWeatherUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.util.CityWeatherUtils" />
+      <module name="yiyan-plug-in" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LocationMapUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.util.LocationMapUtil" />
+      <module name="yiyan-plug-in" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RoutePlanningUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.util.RoutePlanningUtil" />
+      <module name="yiyan-plug-in" />
+      <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebFinalApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.webfinal" />
+      <option name="MAIN_CLASS_NAME" value="com.example.webfinal.WebFinalApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="webFinal" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="webFinal" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YiYanApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="yiyan-plug-in" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.yiyan.YiYanApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.yiyan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YiyanApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="yiyan-plug-in" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.webfinal.YiyanApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YiyanApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="yiyan-plug-in" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.webfinal.YiyanApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="yiyan-plug-in" />
+      <option name="SPRING_BOOT_MAIN_CLASS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SwaggerCodegen" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="generateToPath" value="D:\work\student\3shang\yiyan\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorType" value="OPENAPI_GENERATOR_V6" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="specificationPath" value="D:\work\student\3shang\yiyan\.well-known\openapi.yaml" />
+      <option name="workingDirectory" value="D:\work\student\3shang\yiyan\.well-known" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="f72f3286-aed8-4e87-98ed-efb428e2dc23" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="13119" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.WebFinalApplicationTests.contextLoads" />
+      <item itemvalue="Spring Boot.YiyanApplication" />
+      <item itemvalue="Spring Boot.YiYanApplication" />
+      <item itemvalue="应用程序.LocationMapUtil" />
+      <item itemvalue="应用程序.CityWeatherUtils" />
+      <item itemvalue="应用程序.RoutePlanningUtil" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.LocationMapUtil" />
+        <item itemvalue="Spring Boot.YiYanApplication" />
+        <item itemvalue="应用程序.RoutePlanningUtil" />
+        <item itemvalue="应用程序.CityWeatherUtils" />
+        <item itemvalue="JUnit.WebFinalApplicationTests.contextLoads" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-11.0.22-temurin-11.0.22-3183f394aec4-f336023e" />
+        <option value="jdk-21.0.1-temurin-21.0.1-3183f394aec4-be7c972f" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="" />
+      <created>1702867774932</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702867774932</updated>
+      <workItem from="1702867776754" duration="4647000" />
+      <workItem from="1702880320269" duration="311000" />
+      <workItem from="1702892500535" duration="9925000" />
+      <workItem from="1702905913272" duration="488000" />
+      <workItem from="1702913237204" duration="2559000" />
+      <workItem from="1702966882289" duration="1307000" />
+      <workItem from="1702970950178" duration="9599000" />
+      <workItem from="1702989884180" duration="5498000" />
+      <workItem from="1702999557946" duration="5540000" />
+      <workItem from="1703041983238" duration="1020000" />
+      <workItem from="1703147407377" duration="613000" />
+      <workItem from="1703155390369" duration="19636000" />
+      <workItem from="1703222888420" duration="2377000" />
+      <workItem from="1703225286668" duration="7031000" />
+      <workItem from="1703235648248" duration="3101000" />
+      <workItem from="1703243017587" duration="1063000" />
+      <workItem from="1703498757318" duration="3385000" />
+      <workItem from="1703516603019" duration="13000" />
+      <workItem from="1703576992811" duration="18766000" />
+      <workItem from="1703738624694" duration="792000" />
+      <workItem from="1703753488442" duration="8974000" />
+      <workItem from="1703776297028" duration="800000" />
+      <workItem from="1703777466829" duration="4256000" />
+      <workItem from="1703827650159" duration="3167000" />
+      <workItem from="1704015251788" duration="350000" />
+      <workItem from="1704435106739" duration="9259000" />
+      <workItem from="1704720839459" duration="604000" />
+      <workItem from="1704877645076" duration="2270000" />
+      <workItem from="1704886590180" duration="3450000" />
+      <workItem from="1704967541399" duration="5847000" />
+      <workItem from="1705019441031" duration="5774000" />
+      <workItem from="1705589026647" duration="105000" />
+      <workItem from="1706107247912" duration="2815000" />
+      <workItem from="1706110426878" duration="2149000" />
+      <workItem from="1706420325516" duration="31000" />
+      <workItem from="1707028853558" duration="7526000" />
+      <workItem from="1707209499882" duration="4797000" />
+      <workItem from="1708507000846" duration="166000" />
+      <workItem from="1708507180653" duration="5226000" />
+      <workItem from="1708529278173" duration="325000" />
+      <workItem from="1708591985237" duration="1376000" />
+      <workItem from="1708593377706" duration="406000" />
+      <workItem from="1708593794139" duration="526000" />
+      <workItem from="1708594330434" duration="8872000" />
+      <workItem from="1708617268095" duration="16669000" />
+      <workItem from="1708697789804" duration="4610000" />
+      <workItem from="1708760219228" duration="30000" />
+      <workItem from="1708760259960" duration="9112000" />
+      <workItem from="1709120060125" duration="4962000" />
+      <workItem from="1709125384323" duration="185000" />
+    </task>
+    <task id="LOCAL-00001" summary="新闻搜索开发">
+      <created>1702868974844</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702868974844</updated>
+    </task>
+    <task id="LOCAL-00002" summary="新闻搜索开发">
+      <created>1702869484551</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702869484551</updated>
+    </task>
+    <task id="LOCAL-00003" summary="完成基础新闻搜索">
+      <created>1702880375290</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702880375290</updated>
+    </task>
+    <task id="LOCAL-00004" summary="python翻译脚本，TransUtil增加免费谷歌翻译方法">
+      <created>1702913415253</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702913415253</updated>
+    </task>
+    <task id="LOCAL-00005" summary="修改TransUtil的字符集错误">
+      <created>1702978210344</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702978210344</updated>
+    </task>
+    <task id="LOCAL-00006" summary="修改TransUtil的字符集错误">
+      <created>1702978331861</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702978331861</updated>
+    </task>
+    <task id="LOCAL-00007" summary="TransUtil的Google接口翻译完成">
+      <created>1702989999837</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702989999837</updated>
+    </task>
+    <task id="LOCAL-00008" summary="测试Gson">
+      <created>1703224310913</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703224310913</updated>
+    </task>
+    <task id="LOCAL-00009" summary="测试Gson">
+      <created>1703232030537</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1703232030537</updated>
+    </task>
+    <task id="LOCAL-00010" summary="修改了一点小bug，待修改双语文件夹的问题">
+      <created>1703236641171</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703236641171</updated>
+    </task>
+    <task id="LOCAL-00011" summary="qhm的python解释器">
+      <created>1703243875613</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703243875613</updated>
+    </task>
+    <task id="LOCAL-00012" summary="热榜新闻接口的更新爬取和接口实现">
+      <created>1703828833609</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1703828833609</updated>
+    </task>
+    <task id="LOCAL-00013" summary="百度翻译接口实现but批量翻译不行">
+      <created>1704890288485</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704890288485</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/qhm" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="新闻搜索开发" />
+    <MESSAGE value="完成基础新闻搜索" />
+    <MESSAGE value="python翻译脚本，TransUtil增加免费谷歌翻译方法" />
+    <MESSAGE value="添加了knief4j，规范了很多代码" />
+    <MESSAGE value="修改TransUtil的字符集错误" />
+    <MESSAGE value="TransUtil的Google接口翻译完成" />
+    <MESSAGE value="抓取的内容改为正文的html，翻译接口改为传入一个List&lt;String&gt;，修改了python脚本，爬取并保存新闻排行榜的url" />
+    <MESSAGE value="修改了一点小bug，待修改双语文件夹的问题" />
+    <MESSAGE value="qhm的python解释器" />
+    <MESSAGE value="热榜新闻接口的更新爬取和接口实现" />
+    <MESSAGE value="百度翻译接口实现but批量翻译不行" />
+    <option name="LAST_COMMIT_MESSAGE" value="百度翻译接口实现but批量翻译不行" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="transContent" />
+        <watch expression="elementsToTranslate" />
+        <watch expression="doc" />
+        <watch expression="doc" />
+        <watch expression="hotNewsByType.get(4)" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/webFinal$WebFinalApplicationTests_contextLoads.ic" NAME="WebFinalApplicationTests.contextLoads 覆盖结果" MODIFIED="1703579327899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.webfinal.*</FILTER>
+    </SUITE>
+  </component>
+</project>
