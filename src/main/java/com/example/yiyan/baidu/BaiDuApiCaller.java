@@ -1,36 +1,33 @@
-package com.example.yiyan.util;
+package com.example.yiyan.baidu;
 
-import lombok.extern.slf4j.Slf4j;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.LinkedHashMap;
 import java.util.Map;
-@Slf4j
-public class RoutePlanningUtil {
 
-    public static String URL = "https://api.map.baidu.com/directionlite/v1/?";
+public class BaiDuApiCaller {
+    public static final String AK = "6sjWjflCZmzWtbZzOQh9Yhw03DuADVjw";
+    private static final String DRAW_MAP_URL = "https://api.map.baidu.com/staticimage/v2?";
+    private static final String CITY_WEATHER_URL = "https://api.map.baidu.com/weather/v1/";
 
+    private static final String LOCATION_MAP_URL = "https://api.map.baidu.com/staticimage/v2?";
 
-    public static String AK = "6sjWjflCZmzWtbZzOQh9Yhw03DuADVjw";
+    private static final String ROAD_CONDITION_URL = "https://api.map.baidu.com/traffic/v1/road?";
 
+    private static final String ROUTE_PLANNING_URL = "https://api.map.baidu.com/directionlite/v1/?";
 
-    Logger logger = LoggerFactory.getLogger(RoutePlanningUtil.class);
+    private final Gson gson = new Gson();
+    private final Logger logger = LoggerFactory.getLogger(BaiDuApiCaller.class);
 
-    /**
-     * 默认ak
-     * 选择了ak，使用IP白名单校验：
-     * 根据您选择的AK已为您生成调用代码
-     * 检测到您当前的ak设置了IP白名单校验
-     * 您的IP白名单中的IP非公网IP，请设置为公网IP，否则将请求失败
-     * 请在IP地址为xxxxxxx的计算发起请求，否则将请求失败
-     */
     public String requestGetAK(String strUrl, Map<String, String> param) throws Exception {
         if (strUrl == null || strUrl.length() <= 0 || param == null || param.size() <= 0) {
             return null;
@@ -64,15 +61,34 @@ public class RoutePlanningUtil {
         reader.close();
         isr.close();
         logger.info(param.toString());
-        //logger.info("AK: " + buffer.toString());
         return buffer.toString();
     }
 
-    public String getURL() throws Exception {
-        return URL;
+    public <T> T requestGetAK(String strUrl, Map<String, String> param, Type typeOfT) throws Exception {
+        return gson.fromJson(requestGetAK(strUrl,param),typeOfT);
     }
 
-    public String getAK() throws Exception {
-        return AK;
+
+    public String requestCityWeather(Map<String, String> param)throws Exception{
+        return requestGetAK(CITY_WEATHER_URL,param);
     }
+
+    public JsonObject requestDrawMap(Map<String, String> param)throws Exception{
+        return requestGetAK(DRAW_MAP_URL,param,JsonObject.class);
+    }
+
+    public String requestRoadCondition(Map<String, String> param)throws Exception{
+        return requestGetAK(ROAD_CONDITION_URL,param);
+    }
+
+    public JsonObject requestRoutePlanning(String way,Map<String, String> param)throws Exception{
+        return requestGetAK(String.format("%s%s?", ROUTE_PLANNING_URL,way),param,JsonObject.class);
+    }
+
+    public String requestLocationMap(Map<String, String> param)throws Exception{
+        return requestGetAK(ROUTE_PLANNING_URL,param);
+    }
+
+
+
 }

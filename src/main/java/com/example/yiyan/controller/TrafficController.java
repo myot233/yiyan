@@ -1,5 +1,6 @@
 package com.example.yiyan.controller;
 
+import com.example.yiyan.baidu.BaiDuApiCaller;
 import com.example.yiyan.common.BaseResponse;
 import com.example.yiyan.common.ResultUtils;
 import com.example.yiyan.constant.TransConstant;
@@ -35,6 +36,7 @@ import java.util.Map;
 public class TrafficController {
     Logger logger = LoggerFactory.getLogger(RoutePlanningUtil.class);
 
+    private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**
      * 通过请求天气api（例如百度地图或风天气）获取天气信息，返回过去2小时和未来一天的天气状况
      * 交给文心一言总结润色
@@ -43,14 +45,14 @@ public class TrafficController {
      */
     @PostMapping("/city_weather")
     public ResponseEntity<MessageResponse> CityWeather(@RequestBody CityWeatherRequest request) throws Exception {
-        CityWeatherUtil cityWeatherUtil = new CityWeatherUtil();
+
 
         Map<String, String> params = new LinkedHashMap<>();
         params.put("district_id", request.getDistrictId());
         params.put("data_type", request.getDataType());
-        params.put("ak", RoadConditionUtil.AK);
+        params.put("ak", BaiDuApiCaller.AK);
 
-        String cityWeather = cityWeatherUtil.requestGetAK(cityWeatherUtil.getURL(),params);
+        String cityWeather = caller.requestCityWeather(params);
 
         return ResponseEntity.ok(new MessageResponse(cityWeather));
     }
@@ -62,13 +64,13 @@ public class TrafficController {
      */
     @PostMapping("/location_map")
     public ResponseEntity<MessageResponse> LocationMap(@RequestBody LocationMapRequest request) throws Exception {
-        LocationMapUtil locationMapUtil = new LocationMapUtil();
+
 
         Map<String, String> params = new LinkedHashMap<>();
         params.put("center", request.getCenter());
-        params.put("ak", RoadConditionUtil.AK);
+        params.put("ak", BaiDuApiCaller.AK);
 
-        String cityWeather = locationMapUtil.requestGetAK(locationMapUtil.getURL(),params);
+        String cityWeather = caller.requestLocationMap(params);
 
         return ResponseEntity.ok(new MessageResponse(cityWeather));
     }
@@ -89,18 +91,14 @@ public class TrafficController {
     @PostMapping("/route_planning")
     public BaseResponse<Map> RoutePlanning(@RequestBody RoutePlanningRequest request) throws Exception {
         logger.info("/route_panning is called");
-        RoutePlanningUtil snCal = new RoutePlanningUtil();
         String Message = "出现未知错误";
         String mapUrl = "";
-        Map params = new LinkedHashMap<String, String>();
+        Map<String,String> params = new LinkedHashMap<>();
         params.put("origin", request.getOriginPoint());
         params.put("destination", request.getDestinationPoint());
-        params.put("ak", snCal.getAK());
-
-        String resultJson = snCal.requestGetAK(snCal.getURL()+request.getWay()+"?", params);
-        Gson gson = new Gson();
+        params.put("ak", BaiDuApiCaller.AK);
         try {
-            JsonObject jsonObject = gson.fromJson(resultJson, JsonObject.class);
+            JsonObject jsonObject = caller.requestRoutePlanning(request.getWay(),params);
             if (!jsonObject.get("message").getAsString().equals("ok")){
                 Message = "使用的人太多了，请稍后再试";
             }else{
@@ -165,7 +163,7 @@ public class TrafficController {
         params.put("ak", RoadConditionUtil.AK);
 
         // 调用工具类的方法获取道路状况信息
-        String roadCondition = roadConditionUtil.requestGetAK(roadConditionUtil.getURL(),params);
+        String roadCondition = caller.requestRoadCondition(params);
 
         // 返回包含状况信息文本的响应
         return ResponseEntity.ok(new MessageResponse(roadCondition));
