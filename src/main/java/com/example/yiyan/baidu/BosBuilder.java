@@ -25,7 +25,7 @@ public class BosBuilder {
 
         String ACCESS_KEY_ID = "09ed75f834cc45309cf6c8c2b5ebfd01";             // 用户的Access Key ID
         String SECRET_ACCESS_KEY = "feab12d5103c4a3b9cadad3d60dcaaf7";         // 用户的Secret Access Key
-        String ENDPOINT = "carefreedrive.fsh.bcebos.com";                                     // 用户自己指定的域名，参考说明文档
+        String ENDPOINT = "fsh.bcebos.com";                                     // 用户自己指定的域名，参考说明文档
         String BUCKETNAME= "carefreedrive";									   // 用户BucketName名称
 
         // 初始化一个BosClient

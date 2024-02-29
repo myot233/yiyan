@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class DrawMapUtil {
         params.put("ak", AK);
 
         // 请求地图
-        byte[] responseBytes = snCal.requestGetAK(URL, params).getBytes();
+        byte[] responseBytes = snCal.requestGetAK(URL, params);
         Files.write(responseBytes,new File("temp.png"));
         // 将字节数组转换为 MultipartFile
         InputStream inputStream = new ByteArrayInputStream(responseBytes);
@@ -102,9 +101,9 @@ public class DrawMapUtil {
      *
      * @return
      */
-    public String requestGetAK(String strUrl, Map<String, String> param) throws Exception {
+    public byte[] requestGetAK(String strUrl, Map<String, String> param) throws Exception {
         if (strUrl == null || strUrl.length() <= 0 || param == null || param.size() <= 0) {
-            return strUrl;
+            return null;
         }
 
         StringBuilder queryString = new StringBuilder();
@@ -121,21 +120,19 @@ public class DrawMapUtil {
         }
 
         java.net.URL url = new URL(queryString.toString());
-        System.out.println(queryString.toString());
-        URLConnection httpConnection = (HttpURLConnection) url.openConnection();
+        System.out.println(queryString);
+        URLConnection httpConnection = url.openConnection();
         httpConnection.connect();
 
-        InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
-        BufferedReader reader = new BufferedReader(isr);
-        StringBuffer buffer = new StringBuffer();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line);
+        InputStream inputStream = httpConnection.getInputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new  ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        int len;
+        while((len=inputStream.read(buf))>0){
+            byteArrayOutputStream.write(buf,0,len);
         }
-        reader.close();
-        isr.close();
-        System.out.println("AK: " + buffer.toString());
-        return buffer.toString();
+        inputStream.close();
+        return byteArrayOutputStream.toByteArray();
     }
 
 }
