@@ -3,6 +3,8 @@ package com.example.yiyan.baidu;
 import com.baidubce.auth.DefaultBceCredentials;
 import com.baidubce.services.bos.BosClient;
 import com.baidubce.services.bos.BosClientConfiguration;
+import com.baidubce.services.bos.model.CannedAccessControlList;
+import com.baidubce.services.bos.model.ObjectMetadata;
 import com.baidubce.services.bos.model.PutObjectResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,15 +43,18 @@ public class BosBuilder {
         //随机文件ID
         String fileId = getFileIdByTime();
 
+        String key = "route/" + fileId + suffix;
         // 以文件形式上传Object
-        PutObjectResponse putObjectFromFileResponse =
-                client.putObject(BUCKETNAME, fileId + suffix, file.getBytes());
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(file.getContentType());
+        metadata.setContentLength(file.getSize());
+        client.putObject(BUCKETNAME, key, file.getInputStream(), metadata);
+
+        // 设置对象权限为公共读
+        client.setObjectAcl(BUCKETNAME, key, CannedAccessControlList.PublicRead);
 
         //返回文件地址
-        String fileUrl = "https://" + BUCKETNAME + "." + ENDPOINT + "/" + fileId + suffix;
-
-        // 打印ETag
-        System.out.println(putObjectFromFileResponse.getETag());
+        String fileUrl = "https://" + BUCKETNAME + "." + ENDPOINT + "/" +key;
 
         // 关闭客户端
         client.shutdown();
