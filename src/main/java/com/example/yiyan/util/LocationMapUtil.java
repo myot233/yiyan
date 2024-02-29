@@ -109,8 +109,8 @@ public class LocationMapUtil {
         }
 
         java.net.URL url = new URL(queryString.toString());
-        System.out.println(queryString.toString());
-        URLConnection httpConnection = (HttpURLConnection) url.openConnection();
+        System.out.println(queryString);
+        URLConnection httpConnection = url.openConnection();
         httpConnection.connect();
 
         InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());

@@ -46,7 +46,7 @@ public class DrawMapUtil {
         // 计算缩放级别
         //float zoom = calculateZoom(minLongitude, maxLongitude, minLatitude, maxLatitude);
         Integer zoom = 10;
-        String pathsParam = "";
+        StringBuilder pathsParam = new StringBuilder();
         // 调整地图宽度和高度，可以根据具体需求进行调整
         int width = 500;
         int height = 500;
@@ -60,12 +60,12 @@ public class DrawMapUtil {
         int pathSize = paths.size();
         for (int i = 0; i < pathSize; i++) {
             ArrayList<Float> pathPoint = paths.get(i);
-            pathsParam += pathPoint.get(1) + "," + pathPoint.get(0);
+            pathsParam.append(pathPoint.get(1)).append(",").append(pathPoint.get(0));
             if (i < pathSize - 1) {
-                pathsParam += ";";
+                pathsParam.append(";");
             }
         }
-        params.put("paths", pathsParam);
+        params.put("paths", pathsParam.toString());
         params.put("ak", AK);
 
         // 请求地图
