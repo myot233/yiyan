@@ -25,12 +25,10 @@ public class CityWeatherUtil {
 
         CityWeatherUtil snCal = new CityWeatherUtil();
 
-        Map params = new LinkedHashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<>();
         params.put("district_id", "222405");
         params.put("data_type", "all");
         params.put("ak", AK);
-
-
         snCal.requestGetAK(URL, params);
     }
 

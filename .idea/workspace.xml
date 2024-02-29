@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="add some java" />
+    <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="add some java">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrInterFace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrInterFace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/baidu/OcrResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/PluginConfigurationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/controller/PluginConfigurationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/CityWeatherUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/CityWeatherUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/DrawMapUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/yiyan/util/DrawMapUtil.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,38 +69,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.YiYanApplication.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/wxyy/yiyan/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;55cf051800a339cc81c66ba78c37e4d6&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;应用程序.BaiDuApiCaller.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.LocationMapUtil.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.YiYanApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/wxyy/yiyan",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "spring.configuration.checksum": "55cf051800a339cc81c66ba78c37e4d6",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.BaiDuApiCaller.executor": "Run",
+    "应用程序.LocationMapUtil.executor": "Run",
+    "应用程序.OcrImpl.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\wxyy\yiyan" />
       <recent name="E:\wxyy\yiyan\src\main\resources" />
       <recent name="D:\work\student\3shang\yiyan" />
       <recent name="D:\work\student\3shang\yiyan\src\main\resources" />
@@ -101,7 +113,7 @@
       <recent name="D:\work\student\3shang\WEB_hard\webFinal" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.YiYanApplication">
+  <component name="RunManager" selected="应用程序.OcrImpl">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="webFinal" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,12 +220,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LocationMapUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.util.LocationMapUtil" />
+    <configuration name="OcrImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.yiyan.baidu.OcrImpl" />
       <module name="yiyan-plug-in" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.yiyan.util.*" />
+          <option name="PATTERN" value="com.example.yiyan.baidu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -385,18 +397,18 @@
     <list>
       <item itemvalue="Spring Boot.YiyanApplication" />
       <item itemvalue="Spring Boot.YiYanApplication" />
+      <item itemvalue="应用程序.OcrImpl" />
       <item itemvalue="应用程序.BaiDuApiCaller" />
-      <item itemvalue="应用程序.LocationMapUtil" />
       <item itemvalue="应用程序.CityWeatherUtils" />
       <item itemvalue="应用程序.RoutePlanningUtil" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.OcrImpl" />
         <item itemvalue="Spring Boot.YiYanApplication" />
         <item itemvalue="应用程序.BaiDuApiCaller" />
         <item itemvalue="应用程序.RoutePlanningUtil" />
         <item itemvalue="应用程序.CityWeatherUtils" />
-        <item itemvalue="应用程序.LocationMapUtil" />
       </list>
     </recent_temporary>
   </component>

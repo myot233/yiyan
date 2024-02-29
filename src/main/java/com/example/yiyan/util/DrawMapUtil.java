@@ -107,7 +107,7 @@ public class DrawMapUtil {
             return strUrl;
         }
 
-        StringBuffer queryString = new StringBuffer();
+        StringBuilder queryString = new StringBuilder();
         queryString.append(strUrl);
         for (Map.Entry<?, ?> pair : param.entrySet()) {
             queryString.append(pair.getKey() + "=");
