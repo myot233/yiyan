@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f098359f-3b37-4770-b55b-7823aad8dcce" name="更改" comment="完善CityWeather功能">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/.well-known/ai-plugin.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/.well-known/ai-plugin.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -40,8 +37,8 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="5d233741-f3c7-4048-b5c2-b113ae828b83" />
-        <option name="url" value="https://github.com/myot233/yiyan.git" />
+        <option name="accountId" value="d4aab447-1251-47c3-b67a-f1247aef3ffd" />
+        <option name="url" value="https://github.com/myot233/yiyan" />
       </UrlAndAccount>
     </option>
   </component>
@@ -479,7 +476,7 @@
       <workItem from="1709195495492" duration="839000" />
       <workItem from="1709201563100" duration="876000" />
       <workItem from="1709202457765" duration="1730000" />
-      <workItem from="1709204621541" duration="420000" />
+      <workItem from="1709204621541" duration="518000" />
     </task>
     <task id="LOCAL-00001" summary="新闻搜索开发">
       <created>1702868974844</created>
@@ -636,7 +633,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709195561831</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="完善CityWeather功能">
+      <option name="closed" value="true" />
+      <created>1709205056434</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1709205056434</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
