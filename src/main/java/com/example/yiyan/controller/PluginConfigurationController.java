@@ -1,27 +1,25 @@
 package com.example.yiyan.controller;
 
-import com.example.yiyan.baidu.BaiDuApiCaller;
-import com.example.yiyan.model.dto.CityWeatherRequest;
-import com.example.yiyan.model.vo.MessageResponse;
-import com.sun.org.apache.bcel.internal.generic.RET;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @Slf4j
 @CrossOrigin
 public class PluginConfigurationController {
     @RequestMapping("/.well-known/{fileName}")
-    public ResponseEntity<String> Config(@PathVariable String fileName) throws Exception {
+    public ResponseEntity<String> Config(@PathVariable String fileName) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_PLAIN);

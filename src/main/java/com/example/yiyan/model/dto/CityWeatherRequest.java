@@ -1,5 +1,9 @@
 package com.example.yiyan.model.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
 public class CityWeatherRequest {
     /**
      * 纬度
@@ -13,26 +17,17 @@ public class CityWeatherRequest {
     String locationName;
 
 
-
+    @Getter
+    @JsonProperty("district_id")
     private String districtId;
-    private String dataType;
 
-    public CityWeatherRequest() {
-    }
+    @Getter
+    @JsonProperty("data_type")
+    private String dataType;
 
     public CityWeatherRequest(String districtId, String dataType) {
         this.districtId = districtId;
         this.dataType = dataType;
-    }
-
-    public String getDistrictId() {
-        return districtId;
-    }
-
-
-
-    public String getDataType() {
-        return dataType;
     }
 
 

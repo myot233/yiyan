@@ -54,7 +54,7 @@ public class TrafficController {
         Map<String, String> params = new LinkedHashMap<>();
         params.put("district_id", request.getDistrictId());
         params.put("data_type", request.getDataType());
-        params.put("ak", BaiDuApiCaller.AK);
+        params.put("ak", BaiDuApiCaller.AK2);
 
         String cityWeather = caller.requestCityWeather(params);
 

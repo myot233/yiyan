@@ -18,8 +18,10 @@ import java.util.Map;
 
 public class BaiDuApiCaller {
     public static final String AK = "6sjWjflCZmzWtbZzOQh9Yhw03DuADVjw";
+
+    public static final String AK2 ="W12IIMVO4gkKB66T6vNG9L9AfF2hVJSI" ;
     private static final String DRAW_MAP_URL = "https://api.map.baidu.com/staticimage/v2?";
-    private static final String CITY_WEATHER_URL = "https://api.map.baidu.com/weather/v1/";
+    private static final String CITY_WEATHER_URL = "https://api.map.baidu.com/weather/v1/?";
 
     private static final String LOCATION_MAP_URL = "https://api.map.baidu.com/staticimage/v2?";
 
