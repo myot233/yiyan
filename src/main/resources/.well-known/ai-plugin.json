@@ -11,10 +11,10 @@
         "type": "openapi",
         "url": "http://127.0.0.1:8104/.well-known/openapi.yaml"
     },
-    "logo_url": "http://127.0.0.1:8104/logo.png",
+    "logo_url": "http://127.0.0.1:8104/.well-known/logo.png",
     "contact_email": "qhaoming@outlook.com",
     "legal_info_url": "http://www.example.com/legal",
     "examples": {
-        "url": "http://127.0.0.1:8104/example.yaml"
+        "url": "http://127.0.0.1:8104/.well-known/example.yml"
     }
 }
