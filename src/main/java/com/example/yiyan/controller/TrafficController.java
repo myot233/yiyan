@@ -40,6 +40,10 @@ import static cn.hutool.core.util.ArrayUtil.append;
 public class TrafficController {
     Logger logger = LoggerFactory.getLogger(TrafficController.class);
 
+    public static final String ROUTE_PLANNING_PROMPT =
+            "message中包含关于路线的距离、耗时、路况、导航规划路径等信息，请你整合数据，以一种对用户友好的格式展示给用户。" +
+            "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
+            "比如result是 http://www.baidu.com, 你应该返回![词云](http://www.baidu.com)";
     private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**
      * 通过请求天气api（例如百度地图或风天气）获取天气信息，返回过去2小时和未来一天的天气状况
@@ -93,7 +97,7 @@ public class TrafficController {
      * @return
      */
     @PostMapping("/route_planning")
-    public BaseResponse<Map> RoutePlanning(@RequestBody RoutePlanningRequest request) throws Exception {
+    public BaseResponse<Map<String,String>> RoutePlanning(@RequestBody RoutePlanningRequest request) throws Exception {
         logger.info("/route_panning is called");
         String Message = "出现未知错误";
         String mapUrl = "";
@@ -111,21 +115,16 @@ public class TrafficController {
                 JsonObject routesObject = routesElement.getAsJsonObject();
                 JsonArray steps = routesObject.getAsJsonArray("steps");
                 // 改用StringBuffer拼接路径规划的基本信息
-//                Message = "起点：" + request.getOrigin() + "," +
-//                        "终点：" + request.getDestination() + "," +
-//                        "距离：" + routesObject.get("distance") + "米," +
-//                        "耗时：" + routesObject.get("duration") + "秒," +
-//                        "路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + "," +
-//                        "导航规划路径:";
                 StringBuilder stringBuffer = new StringBuilder("起点");
-                stringBuffer
-                        .append(request.getOrigin()+",")
-                        .append("终点：" + request.getDestination() + ",")
-                        .append("距离：" + routesObject.get("distance") + "米,")
-                        .append("耗时：" + routesObject.get("duration") + "秒,");
+                stringBuffer.append(request.getOrigin()).append(",").append("终点：")
+                        .append(request.getDestination()).append(",").append("距离：")
+                        .append(routesObject.get("distance")).append("米,").append("耗时：")
+                        .append(routesObject.get("duration")).append("秒,");
                         //.append("路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + ",")
                         if(routesObject.get("traffic_condition") != null){
-                            stringBuffer.append("路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + ",");
+                            stringBuffer.append("路况：")
+                                    .append(TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()])
+                                    .append(",");
                         }
                         stringBuffer.append("导航规划路径:");
                 // 拼接详细路径和绘制导航静态图
@@ -146,21 +145,15 @@ public class TrafficController {
                 pathPoint.add(lastStepObject.get("end_location").getAsJsonObject().get("lat").getAsFloat());
                 pathPoint.add(lastStepObject.get("end_location").getAsJsonObject().get("lng").getAsFloat());
                 paths.add(pathPoint);
-                DrawMapUtil drawMapUtil = new DrawMapUtil();
-                //请求地图绘制静态图的url，todo
-                String map = DrawMapUtil.getMap(paths);
-                //System.out.println(map);
+                mapUrl = DrawMapUtil.getMap(paths);
             }
         } catch (com.google.gson.JsonSyntaxException e) {
-            e.printStackTrace();
-            logger.info("gson转换错误");
+            logger.info("gson转换错误",e);
         }
-        Map response = new LinkedHashMap<>();
+        Map<String,String> response = new LinkedHashMap<>();
         response.put("message", Message);
         response.put("mapUrl", mapUrl);
-        response.put("prompt", "message中包含关于路线的距离、耗时、路况、导航规划路径等信息，请你整合数据，以一种对用户友好的格式展示给用户。" +
-                "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
-                "比如result是 http://www.baidu.com, 你应该返回![词云](http://www.baidu.com) ");
+        response.put("prompt", ROUTE_PLANNING_PROMPT);
         logger.info(Message);
         return ResultUtils.success(response);
     }

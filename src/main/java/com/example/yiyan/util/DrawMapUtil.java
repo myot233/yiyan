@@ -1,14 +1,12 @@
 package com.example.yiyan.util;
 
-import com.example.yiyan.common.BosBuilder;
+import com.example.yiyan.baidu.BosBuilder;
+import com.google.common.io.Files;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -73,12 +71,12 @@ public class DrawMapUtil {
 
         // 请求地图
         byte[] responseBytes = snCal.requestGetAK(URL, params).getBytes();
-
+        Files.write(responseBytes,new File("temp.png"));
         // 将字节数组转换为 MultipartFile
         InputStream inputStream = new ByteArrayInputStream(responseBytes);
         MultipartFile multipartFile = new MockMultipartFile("file", "map_image.png", "image/png", inputStream);
         BosBuilder bosBuilder = new BosBuilder();
-        String fileUrl = bosBuilder.putObjectSimple(multipartFile);
+        String fileUrl = BosBuilder.putObjectSimple(multipartFile);
         return fileUrl;
     }
 

@@ -1,4 +1,4 @@
-package com.example.yiyan.common;
+package com.example.yiyan.baidu;
 
 import com.baidubce.auth.DefaultBceCredentials;
 import com.baidubce.services.bos.BosClient;
