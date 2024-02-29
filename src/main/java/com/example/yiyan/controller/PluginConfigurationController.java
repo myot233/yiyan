@@ -18,6 +18,8 @@ import java.io.InputStream;
 @Slf4j
 @CrossOrigin
 public class PluginConfigurationController {
+
+    //TODO: 等待修复
     @RequestMapping("/.well-known/{fileName}")
     public ResponseEntity<String> Config(@PathVariable String fileName) {
 
