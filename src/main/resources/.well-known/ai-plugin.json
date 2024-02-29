@@ -14,5 +14,7 @@
     "logo_url": "http://127.0.0.1:8104/logo.png",
     "contact_email": "qhaoming@outlook.com",
     "legal_info_url": "http://www.example.com/legal",
-    "examples": {"url": "http://127.0.0.1:8104/example.yaml" }
+    "examples": {
+        "url": "http://127.0.0.1:8104/example.yaml"
+    }
 }
