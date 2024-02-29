@@ -22,9 +22,14 @@ public class PluginConfigurationController {
     //TODO: 等待修复
     @RequestMapping("/.well-known/{fileName}")
     public ResponseEntity<String> Config(@PathVariable String fileName) {
-
+        log.info("call {}",fileName);
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
+        if(fileName.endsWith("json")){
+            headers.setContentType(MediaType.APPLICATION_JSON);
+        }else{
+            headers.setContentType(MediaType.parseMediaType("text/yaml; charset=UTF-8"));
+        }
+
         InputStream inputStream
                 = PluginConfigurationController.class.getResourceAsStream("/.well-known/" + fileName);
         if (inputStream != null) {
