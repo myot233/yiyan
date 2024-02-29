@@ -2,6 +2,7 @@ package com.example.yiyan.baidu;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import lombok.Getter;
 import okhttp3.*;
 
 import java.io.File;
@@ -10,20 +11,26 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class OcrImpl implements OcrInterFace {
     private final Gson gson = new Gson();
     private final static String ApiKey = "uyuJcts5qbha9VwzSDqjuATL";
     private final static String Secret = "S9QpENWaQMsXdSMUShCWDMruu7G1RyEB";
+
+    private final String TIME_REGEX = "\\d?\\d(:|：)\\d\\d";
     static final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
 
     public static void main(String []args) throws IOException {
         OcrImpl ocr = new OcrImpl();
 
-        OcrResult result  = ocr.getPlaceFromTicket(Paths.get("下载.png"));
+        OcrResult result  = ocr.getPlaceFromImage(Paths.get("demo2.jpg"));
         System.out.println(result);
-        OcrResult result2  = ocr.getPlaceFromTicket(Paths.get("E:\\wxyy\\yiyan\\demo2.jpg"));
+        OcrResult result2  = ocr.getPlaceFromTicket(Paths.get("temp3.png"));
         System.out.println(result2);
     }
 
@@ -50,6 +57,20 @@ public class OcrImpl implements OcrInterFace {
         return response.body() != null ? response.body().string() : null;
     }
 
+    private String requestWordOcr(Path path) throws IOException {
+    MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+    RequestBody body = RequestBody.create(mediaType, String.format("image=%s", getFileContentAsBase64(path,true)));
+    Request request = new Request.Builder()
+            .url("https://aip.baidubce.com/rest/2.0/ocr/v1/accurate?access_token="+ requestAccessToken())
+            .method("POST", body)
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("Accept", "application/json")
+            .build();
+    Response response = HTTP_CLIENT.newCall(request).execute();
+        return response.body().string();
+
+    }
+
     private String requestAccessToken() throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "");
@@ -62,14 +83,62 @@ public class OcrImpl implements OcrInterFace {
         Response response = HTTP_CLIENT.newCall(request).execute();
         return gson.fromJson(response.body().string(), JsonObject.class).get("access_token").getAsString();
     }
+    @Getter
+    private static class Location {
+
+        private int top;
+        private int left;
+        private int width;
+        private int height;
 
 
+    }
+
+    @Getter
+    private static class Word{
+        private String words;
+        private Location location;
+    }
+    /*
+    实现该函数的两种思路
+    1.使用可以识别具体位置的ocr识别图片,然后通过坐标之间的关系找到两个时间和始发站中点赞
+    2.用ocr得到文字信息,再让文心一言处理后进行路线规划
+     */
     @Override
-    public OcrResult getPlaceFromImage(Path path) {
-        File file = path.toFile();
+    public OcrResult getPlaceFromImage(Path path) throws IOException {
+        List<Word> locationList = new ArrayList<>();
 
-        return null;
+        JsonObject result = gson.fromJson(requestWordOcr(path),JsonObject.class);
+        System.out.println(result);
+        result.getAsJsonArray("words_result").forEach(jsonElement -> {locationList.add(gson.fromJson(jsonElement,Word.class));});
+        List<Word> timeList =  locationList.stream().filter(location -> Pattern.matches(TIME_REGEX,location.words)).collect(Collectors.toList());
+        if(timeList.size()<2) return null;
+        int left = timeList.get(0).location.left;
+        int left2 = timeList.get(1).location.left;
+        int width2 = timeList.get(1).location.width;
+        List<Word> keywordList =  locationList.stream()
+                .filter(location -> location.words.contains("订单号") ||
+                location.words.contains("当日有效"))
+                .collect(Collectors.toList());
+        List<Word> resultList = locationList.stream()
+                .filter(
+                        location-> location.location.top < timeList.get(0).location.top &&
+                        location.location.top > keywordList.get(0).location.top
+                )
+                .filter(location -> Math.abs(
+                        location.location.left - left)<5 ||
+                        Math.abs(location.location.left+location.location.width-left2-width2) < 5)
+                .collect(Collectors.toList());
+
+        return new OcrResult(
+                timeList.get(0).words,
+                timeList.get(1).words,
+                resultList.get(0).words,
+                resultList.get(1).words
+        );
      }
+
+
 
     @Override
     public OcrResult getPlaceFromTicket(Path path) throws IOException {
@@ -90,6 +159,15 @@ public class OcrImpl implements OcrInterFace {
                     null, //ocr 识别车票无法获取终止时间
                     getVal(wordResult,"starting_station"),//wordResult.get("starting_station").getAsString(),
                     getVal(wordResult,"destination_station")//wordResult.get("destination_station").getAsString()
+            );
+        }
+        if(first.get("type").getAsString().equals("bus_ticket")){
+            JsonObject wordResult = first.getAsJsonObject("result");
+            return new OcrResult(
+                    getVal(wordResult,"Date") + getVal(wordResult,"Time"),
+                    null, //ocr 识别车票无法获取终止时间
+                    getVal(wordResult,"StartingStation"),//wordResult.get("starting_station").getAsString(),
+                    getVal(wordResult,"DestinationStation")//wordResult.get("destination_station").getAsString()
             );
         }
 
