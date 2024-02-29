@@ -9,8 +9,6 @@ public interface OcrInterFace {
     public OcrResult getPlaceFromTicket(Path path) throws IOException;
 
 
-
-
 }
 
 
