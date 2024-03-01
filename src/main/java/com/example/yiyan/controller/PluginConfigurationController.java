@@ -26,8 +26,10 @@ public class PluginConfigurationController {
         HttpHeaders headers = new HttpHeaders();
         if(fileName.endsWith("json")){
             headers.setContentType(MediaType.APPLICATION_JSON);
-        }else{
+        }else if(fileName.endsWith("yaml")){
             headers.setContentType(MediaType.parseMediaType("text/yaml; charset=UTF-8"));
+        }else if(fileName.endsWith("yml")){
+            headers.setContentType(MediaType.parseMediaType("text/yml; charset=UTF-8"));
         }
 
         InputStream inputStream
