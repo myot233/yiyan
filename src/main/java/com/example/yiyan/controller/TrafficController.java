@@ -7,9 +7,12 @@ import com.example.yiyan.constant.TransConstant;
 import com.example.yiyan.model.dto.*;
 import com.example.yiyan.model.vo.MessageResponse;
 import com.example.yiyan.util.*;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +20,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 import static cn.hutool.core.util.ArrayUtil.append;
 
@@ -40,10 +41,7 @@ import static cn.hutool.core.util.ArrayUtil.append;
 public class TrafficController {
     Logger logger = LoggerFactory.getLogger(TrafficController.class);
 
-    public static final String ROUTE_PLANNING_PROMPT =
-            "message中包含关于路线的距离、耗时、路况、导航规划路径等信息，请你整合数据，以一种对用户友好的格式展示给用户。" +
-                    "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
-                    "距离:｛message中的距离｝\n耗时:{message中的耗时}\n导航规划路径:｛第一条路径｝\n{第二条路径}...{第n条路径}\n{用图片的形式展示map_url}";
+    public static final String ROUTE_PLANNING_PROMPT = ResourceUtil.getResourceAsString("/prompt/route_planning_prompt");
     private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**
      * 通过请求天气api（例如百度地图或风天气）获取天气信息，返回过去2小时和未来一天的天气状况
@@ -134,12 +132,22 @@ public class TrafficController {
                 for (JsonElement step :
                         steps) {
                     JsonObject stepObject = step.getAsJsonObject();
-                    stringBuffer.append(stepObject.get("instruction")).append(",");
                     ArrayList<Float> pathPoint = new ArrayList<>();
                     pathPoint.add(stepObject.get("start_location").getAsJsonObject().get("lat").getAsFloat());
                     pathPoint.add(stepObject.get("start_location").getAsJsonObject().get("lng").getAsFloat());
                     paths.add(pathPoint);
                 }
+                List<JsonObject> placesConcurrent =  findPlacesDummy(paths);
+                for(int i = 0;i < steps.size();i++){
+                    stringBuffer.append(steps.get(i).getAsJsonObject().get("instruction"));
+                    placesConcurrent.get(i)
+                            .getAsJsonArray("results")
+                            .forEach(x->stringBuffer.append("附近的店:")
+                                    .append(x.getAsJsonObject().get("name").getAsString()).append(";"));
+
+                }
+
+
                 Message = stringBuffer.toString();
                 JsonElement lastStep = steps.get(steps.size() - 1);
                 JsonObject lastStepObject = lastStep.getAsJsonObject();
@@ -155,9 +163,41 @@ public class TrafficController {
         Map<String,String> response = new LinkedHashMap<>();
         response.put("message", Message);
         response.put("mapUrl", mapUrl);
+
         response.put("prompt", ROUTE_PLANNING_PROMPT);
         logger.info(Message);
         return ResultUtils.success(response);
+    }
+
+    private List<JsonObject> findPlacesDummy(List<ArrayList<Float>> paths) {
+        String[] selecetions = new String[]{"水果摊","鞋垫","小学","书店","车库"};
+        Gson tempGson = new Gson();
+        List<JsonObject> jsonObjects = new ArrayList<>();
+        paths.forEach(x->jsonObjects.add(tempGson.fromJson(String.format("{results:[{name:\"%s%s\"}]}", "杭州师范", selecetions[new Random().nextInt(selecetions.length)]),JsonObject.class)));
+        return jsonObjects;
+    }
+
+    private List<JsonObject> findPlacesConcurrent(List<ArrayList<Float>> paths) {
+        ExecutorService threadpool = Executors.newCachedThreadPool();
+        List<Future<JsonObject>> futures = new ArrayList<>();
+        for (ArrayList<Float> path : paths) {
+            Map<String, String> params = new LinkedHashMap<>();
+            params.put("query", "美食");
+            params.put("location", String.format("%s,%s", path.get(0),path.get(1)));
+            params.put("radius", "200");
+            params.put("output", "json");
+            params.put("ak", BaiDuApiCaller.AK2);
+            Future<JsonObject> jsonObjectFuture = threadpool.submit(() -> caller.requestRoutePlaceSearch(params));
+            futures.add(jsonObjectFuture);
+        }
+        return futures.stream().map(x-> {
+            try {
+                return x.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
+
     }
 
 

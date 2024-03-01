@@ -25,6 +25,8 @@ public class BaiDuApiCaller {
 
     private static final String LOCATION_MAP_URL = "https://api.map.baidu.com/staticimage/v2?";
 
+    private static final String PLACE_SEARCH_URL = "https://api.map.baidu.com/place/v2/search?";
+
     private static final String ROAD_CONDITION_URL = "https://api.map.baidu.com/traffic/v1/road?";
 
     private static final String ROUTE_PLANNING_URL = "https://api.map.baidu.com/directionlite/v1/";
@@ -89,6 +91,10 @@ public class BaiDuApiCaller {
 
     public JsonObject requestRoutePlanning(String way,Map<String, String> param)throws Exception{
         return requestGetAK(String.format("%s%s?", ROUTE_PLANNING_URL,way),param,JsonObject.class);
+    }
+
+    public JsonObject requestRoutePlaceSearch(Map<String, String> param)throws Exception{
+        return requestGetAK(PLACE_SEARCH_URL,param,JsonObject.class);
     }
 
     public String requestLocationMap(Map<String, String> param)throws Exception{
