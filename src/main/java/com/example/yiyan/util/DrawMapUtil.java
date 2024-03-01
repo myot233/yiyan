@@ -52,7 +52,7 @@ public class DrawMapUtil {
                 .sqrt(Math.pow((Math.max(Math.abs(maxLongitude - centerLongitude), Math.abs(minLongitude - centerLongitude))), 2) +
                         Math.pow((Math.max(Math.abs(maxLatitude - centerLatitude), Math.abs(minLatitude - centerLatitude))), 2));
 
-        Integer zoom = Math.toIntExact(Math.round(16 - (Math.log(maxDistance / 0.002161) / Math.log(2))));
+        Integer zoom = calculateZoom(minLongitude, maxLongitude, minLatitude, maxLatitude);
         StringBuilder pathsParam = new StringBuilder();
         // 调整地图宽度和高度，可以根据具体需求进行调整
         int width = 500;
@@ -64,6 +64,11 @@ public class DrawMapUtil {
         params.put("width", String.valueOf(width));
         params.put("height", String.valueOf(height));
         params.put("zoom", String.valueOf(zoom));
+        params.put("pathStyles", "0x1D7EFF,5,1");
+        params.put("markers", paths.get(0).get(1)+"," + paths.get(0).get(0) + "|"
+                + paths.get(paths.size()-1).get(1) + "," + paths.get(paths.size()-1).get(0)
+        );
+        params.put("markerStyles", "-1,https://api.map.baidu.com/images/marker_red.png,-1,23,25");
         int pathSize = paths.size();
         for (int i = 0; i < pathSize; i++) {
             ArrayList<Float> pathPoint = paths.get(i);
@@ -71,7 +76,6 @@ public class DrawMapUtil {
         }
         pathsParam.append("|");
         params.put("paths", pathsParam.toString());
-        params.put("pathStyles", "0xff0000,5,1");
         params.put("ak", AK);
 
         // 请求地图
@@ -85,14 +89,29 @@ public class DrawMapUtil {
         return fileUrl;
     }
 
-    private float calculateZoom(float minLongitude, float maxLongitude, float minLatitude, float maxLatitude) {
-        // 可以根据实际需求调整缩放级别的计算方法
-        // 这里简单地计算路径边界框的跨度作为缩放级别
+    private static int calculateZoom(float minLongitude, float maxLongitude, float minLatitude, float maxLatitude) {
+        // 计算路径边界框的经度和纬度跨度
         float longitudeSpan = maxLongitude - minLongitude;
         float latitudeSpan = maxLatitude - minLatitude;
-        // 根据经纬度跨度计算缩放级别，这里可以根据实际情况进行调整
-        float zoom = Math.min(longitudeSpan, latitudeSpan);
-        return zoom;
+        // 根据经纬度跨度计算地图的水平和垂直放缩级别
+        float horizontalZoom = (float)(Math.log(360 / longitudeSpan) / Math.log(2));
+        float verticalZoom = (float)(Math.log(180 / latitudeSpan) / Math.log(2));
+
+        // 取水平和垂直放缩级别的较小值作为最终放缩级别
+        float zoom = Math.min(horizontalZoom, verticalZoom);
+        // 根据百度地图的放缩级别范围进行调整
+        zoom = Math.max(3, Math.min(18, zoom)); // 注意这里范围是 3 到 21
+        // 对应的比例尺
+        float[] scale = {2000f, 1000f, 500f, 200f, 100f, 50f, 25f, 20f, 10f, 5f, 2f, 1f, 0.5f, 0.2f, 0.1f, 0.05f, 0.02f, 0.01f};
+        // 寻找最接近的比例尺
+        float closestScale = scale[(int) zoom - 3]; // zoom 范围是 3 到 21，而比例尺数组是从 2000 公里开始，所以要减去 3
+        // 找到最接近的比例尺后，返回对应的放缩级别
+        for (int i = 0; i < scale.length; i++) {
+            if (scale[i] < closestScale) {
+                return i + 4; // 再加上 3，因为数组下标是从 0 开始的，而放缩级别是从 3 开始
+            }
+        }
+        return 18; // 如果没有找到合适的放缩级别，就返回最大值 21
     }
 
 
