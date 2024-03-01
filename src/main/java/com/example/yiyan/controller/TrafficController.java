@@ -42,8 +42,8 @@ public class TrafficController {
 
     public static final String ROUTE_PLANNING_PROMPT =
             "message中包含关于路线的距离、耗时、路况、导航规划路径等信息，请你整合数据，以一种对用户友好的格式展示给用户。" +
-            "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
-            "比如result是 http://www.baidu.com, 你应该返回![词云](http://www.baidu.com)";
+                    "map_url是图片链接,请用mark语法将这个链接展示给用户, 以下是一个例子: " +
+                    "距离:｛message中的距离｝\n耗时:{message中的耗时}\n导航规划路径:｛第一条路径｝\n{第二条路径}...{第n条路径}\n{用图片的形式展示map_url}";
     private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**
      * 通过请求天气api（例如百度地图或风天气）获取天气信息，返回过去2小时和未来一天的天气状况
