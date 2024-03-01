@@ -19,7 +19,7 @@ import java.io.InputStream;
 @CrossOrigin
 public class PluginConfigurationController {
 
-    //TODO: 等待修复
+
     @RequestMapping("/.well-known/{fileName}")
     public ResponseEntity<String> Config(@PathVariable String fileName) {
         log.info("call {}",fileName);

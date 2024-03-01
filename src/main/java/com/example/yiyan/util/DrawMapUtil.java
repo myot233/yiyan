@@ -6,7 +6,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -45,7 +48,11 @@ public class DrawMapUtil {
 
         // 计算缩放级别
         //float zoom = calculateZoom(minLongitude, maxLongitude, minLatitude, maxLatitude);
-        Integer zoom = 10;
+        double maxDistance = Math
+                .sqrt(Math.pow((Math.max(Math.abs(maxLongitude - centerLongitude), Math.abs(minLongitude - centerLongitude))), 2) +
+                        Math.pow((Math.max(Math.abs(maxLatitude - centerLatitude), Math.abs(minLatitude - centerLatitude))), 2));
+
+        Integer zoom = Math.toIntExact(Math.round(16 - (Math.log(maxDistance / 0.002161) / Math.log(2))));
         StringBuilder pathsParam = new StringBuilder();
         // 调整地图宽度和高度，可以根据具体需求进行调整
         int width = 500;
@@ -60,17 +67,16 @@ public class DrawMapUtil {
         int pathSize = paths.size();
         for (int i = 0; i < pathSize; i++) {
             ArrayList<Float> pathPoint = paths.get(i);
-            pathsParam.append(pathPoint.get(1)).append(",").append(pathPoint.get(0));
-            if (i < pathSize - 1) {
-                pathsParam.append(";");
-            }
+            pathsParam.append(pathPoint.get(1)).append(",").append(pathPoint.get(0)).append(";");
         }
+        pathsParam.append("|");
         params.put("paths", pathsParam.toString());
+        params.put("pathStyles", "0xff0000,5,1");
         params.put("ak", AK);
 
         // 请求地图
         byte[] responseBytes = snCal.requestGetAK(URL, params);
-        Files.write(responseBytes,new File("temp.png"));
+        Files.write(responseBytes, new File("temp.png"));
         // 将字节数组转换为 MultipartFile
         InputStream inputStream = new ByteArrayInputStream(responseBytes);
         MultipartFile multipartFile = new MockMultipartFile("file", "map_image.png", "image/png", inputStream);
@@ -88,7 +94,6 @@ public class DrawMapUtil {
         float zoom = Math.min(longitudeSpan, latitudeSpan);
         return zoom;
     }
-
 
 
     /**
@@ -125,11 +130,11 @@ public class DrawMapUtil {
         httpConnection.connect();
 
         InputStream inputStream = httpConnection.getInputStream();
-        ByteArrayOutputStream byteArrayOutputStream = new  ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
         int len;
-        while((len=inputStream.read(buf))>0){
-            byteArrayOutputStream.write(buf,0,len);
+        while ((len = inputStream.read(buf)) > 0) {
+            byteArrayOutputStream.write(buf, 0, len);
         }
         inputStream.close();
         return byteArrayOutputStream.toByteArray();
