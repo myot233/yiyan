@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.sun.org.apache.bcel.internal.generic.RET;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.slf4j.Logger;
@@ -222,4 +223,31 @@ public class TrafficController {
         // 返回包含状况信息文本的响应
         return ResponseEntity.ok(new MessageResponse(roadCondition));
     }
+
+    /**
+     * 获取图像的URL
+     * @param request
+     * @return
+     */
+    @PostMapping("/get_image")
+    public BaseResponse<Map<String,String>> getImage(@RequestBody ImageRequest request) throws Exception {
+        String url = request.getUrl();
+//        System.out.println(imageUrl);
+        logger.info(url);
+        String prompt = "以下是路线的图片链接: ![img](图片链接) 请参考以上我给出的例子输出, url是图片的连接url";
+        Map<String,String> response = new LinkedHashMap<>();
+        response.put("url", url);
+        response.put("prompt", prompt);
+        return ResultUtils.success(response);
+
+    }
+
+    @Data
+    public class ImageRequest {
+        private String url;
+        private String userinput;
+    }
+
+
+
 }

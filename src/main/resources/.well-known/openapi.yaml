@@ -24,6 +24,24 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/messageResponse"
 
+    /get_image:
+        post:
+            operationId: getImage
+            summary: 获取图片的URL地址和剩余其他内容
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/getImage"
+            responses:
+                "200":
+                    description: 获取URL成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/messageResponse"
+
 components:
     schemas:
         # 请求URL
@@ -53,6 +71,19 @@ components:
                 tactics:
                     type: int
                     description: 0：时间最短1：不走高速,2：躲避拥堵,3：最短距离,4：花费最少,5：大路优先
+
+
+        getImage:
+            type: object
+            required: [ url,userinput ]
+            properties:
+                url:
+                    type: string
+                    description: 图像的URL地址
+                userinput:
+                    type: string
+                    description: URL地址以外的中文内容，例如“火车票的路径如下：”
+
 
         messageResponse:
             type: object
