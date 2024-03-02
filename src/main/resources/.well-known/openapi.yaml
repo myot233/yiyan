@@ -42,10 +42,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/messageResponse"
+
   /get_description:
     post:
       operationId: getDescription
-      description: 返回插件的各种信息
+      description: 驾途无忧插件的信息
       responses:
         200:
           description: 插件信息返回成功
@@ -67,7 +68,6 @@ components:
         pluginUrl:
           type: string
           description: 插件的官网
-
 
     # 请求URL
     routePlanning:
