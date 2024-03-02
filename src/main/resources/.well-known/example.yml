@@ -20,14 +20,28 @@ examples:
 
       - context: # 对话历史
         - role: user
-          content: 火车票的路径如下：https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
+          content: 火车票的路径如下 https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
         - role: bot
           #触发插件
           plugin:
             # 应当触发的接口getImage
             operationId: getImage
             # 思考过程，对触发有帮助
-            thoughts: 获取用户给的图像的URL
+            thoughts: 获取用户给的图像的URL,所有图片都应该调用这个操作
             requestArguments:
               url: https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
               userinput: 火车票的路径如下
+
+      - context: # 对话历史
+          - role: user
+            content: https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
+          - role: bot
+            #触发插件
+            plugin:
+              # 应当触发的接口getImage
+              operationId: getImage
+              # 思考过程，对触发有帮助
+              thoughts: 获取用户给的图像的URL,所有图片都应该调用这个操作
+              requestArguments:
+                url: https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
+                userinput: ""

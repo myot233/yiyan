@@ -1,29 +1,30 @@
-package com.example.yiyan.baidu;
+package com.example.yiyan.controller;
 
+import com.example.yiyan.baidu.BaiDuApiCaller;
 import com.google.gson.JsonObject;
 import lombok.Data;
 
 @Data
-public class OcrResult {
-    private String startTime;
-    private String endTime;
-    private String startPlace;
-    private String endPlace;
+public class ImageRequest {
+    private String url;
+    private String userinput;
+    private String startPos;
+    private String endPos;
+    private String  way;
 
-    public OcrResult(String startTime,String endTime,String startPlace,String endPlace){
-        this.startPlace = startPlace;
-        this.endPlace = endPlace;
-        this.startTime = startTime;
-        this.endTime = endTime;
+
+    public String getWay() {
+        way = "1";
+        String[] ways = {"driving","riding","walking","transit"};
+        return ways[Integer.parseInt(way)];
     }
-
     public String getOriginPoint(BaiDuApiCaller caller) throws Exception {
+        startPos = "杭州师范大学";
 
-
-        if(startPlace == null || startPlace.isEmpty()){
+        if(startPos == null || startPos.isEmpty()){
             return "";
         }
-        JsonObject pos = caller.requestPlaceLocation(startPlace, "全国");
+        JsonObject pos = caller.requestPlaceLocation(startPos, "全国");
         JsonObject location = pos.getAsJsonObject()
                 .getAsJsonArray("results")
                 .get(0)
@@ -36,10 +37,10 @@ public class OcrResult {
     }
 
     public String getDestinationPoint(BaiDuApiCaller caller) throws Exception {
-        if(endPlace == null || endPlace.isEmpty()){
+        if(endPos == null || endPos.isEmpty()){
             return "";
         }
-        JsonObject pos = caller.requestPlaceLocation(endPlace, "全国");
+        JsonObject pos = caller.requestPlaceLocation(endPos, "全国");
         JsonObject location = pos.getAsJsonObject()
                 .getAsJsonArray("results")
                 .get(0)
@@ -50,6 +51,4 @@ public class OcrResult {
         float destinationLng = location.get("lng").getAsFloat();
         return destinationLat + "," + destinationLng;
     }
-
-
 }

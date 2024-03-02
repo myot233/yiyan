@@ -1,6 +1,9 @@
 package com.example.yiyan.controller;
 
 import com.example.yiyan.baidu.BaiDuApiCaller;
+import com.example.yiyan.baidu.OcrImpl;
+import com.example.yiyan.baidu.OcrInterFace;
+import com.example.yiyan.baidu.OcrResult;
 import com.example.yiyan.common.BaseResponse;
 import com.example.yiyan.common.ResultUtils;
 import com.example.yiyan.constant.TransConstant;
@@ -10,10 +13,13 @@ import com.example.yiyan.util.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.sun.org.apache.bcel.internal.generic.RET;
-import lombok.Data;
+import io.swagger.util.Json;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +29,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -43,6 +55,8 @@ public class TrafficController {
     Logger logger = LoggerFactory.getLogger(TrafficController.class);
 
     public static final String ROUTE_PLANNING_PROMPT = ResourceUtil.getResourceAsString("/prompt/route_planning_prompt");
+
+    public static final String PLUGIN_DESCRIPTION_PROMPT = ResourceUtil.getResourceAsString("/prompt/plugin_description_prompt");
     private final BaiDuApiCaller caller = new BaiDuApiCaller();
     /**
      * 通过请求天气api（例如百度地图或风天气）获取天气信息，返回过去2小时和未来一天的天气状况
@@ -106,8 +120,21 @@ public class TrafficController {
         params.put("origin", request.getOriginPoint(caller));
         params.put("destination", request.getDestinationPoint(caller));
         params.put("ak", BaiDuApiCaller.AK);
+        return getMapBaseResponse(
+                request.getWay(),
+                request.getOrigin(),
+                request.getDestination(),
+                params
+        );
+    }
+
+    @NotNull
+    private BaseResponse<Map<String, String>> getMapBaseResponse(String way,String origin,String destination,
+                                                                 Map<String, String> params) throws Exception {
+        String Message = "出现未知错误";
+        String mapUrl = "";
         try {
-            JsonObject jsonObject = caller.requestRoutePlanning(request.getWay(),params);
+            JsonObject jsonObject = caller.requestRoutePlanning(way, params);
             if (!jsonObject.get("message").getAsString().equals("ok")){
                 Message = "使用的人太多了，请稍后再试";
             }else{
@@ -117,8 +144,8 @@ public class TrafficController {
                 JsonArray steps = routesObject.getAsJsonArray("steps");
                 // 改用StringBuffer拼接路径规划的基本信息
                 StringBuilder stringBuffer = new StringBuilder("起点");
-                stringBuffer.append(request.getOrigin()).append(",").append("终点：")
-                        .append(request.getDestination()).append(",").append("距离：")
+                stringBuffer.append(origin).append(",").append("终点：")
+                        .append(destination).append(",").append("距离：")
                         .append(routesObject.get("distance")).append("米,").append("耗时：")
                         .append(routesObject.get("duration")).append("秒,");
                         //.append("路况：" + TransConstant.traffic_conditions[routesObject.get("traffic_condition").getAsInt()] + ",")
@@ -224,6 +251,19 @@ public class TrafficController {
         return ResponseEntity.ok(new MessageResponse(roadCondition));
     }
 
+
+    @PostMapping("get_description")
+    public BaseResponse<Map<String,String>> getDescription() throws Exception {
+        Gson gson = new Gson();
+        Map<String,String> params = new HashMap<>();
+        JsonObject detail = gson.fromJson(ResourceUtil.getResourceAsString("/.well-known/ai-plugin.json"),JsonObject.class);
+        params.put("pluginName",detail.get("name_for_human").getAsString());
+        params.put("pluginDescription",detail.get("description_for_human").getAsString());
+        params.put("pluginUrl",detail.get("legal_info_url").getAsString());
+        params.put("prompt",PLUGIN_DESCRIPTION_PROMPT);
+        return ResultUtils.success(params);
+    }
+
     /**
      * 获取图像的URL
      * @param request
@@ -231,6 +271,8 @@ public class TrafficController {
      */
     @PostMapping("/get_image")
     public BaseResponse<Map<String,String>> getImage(@RequestBody ImageRequest request) throws Exception {
+
+        OcrInterFace ocr = new OcrImpl();
         String url = request.getUrl();
 //        System.out.println(imageUrl);
         logger.info(url);
@@ -238,16 +280,66 @@ public class TrafficController {
         Map<String,String> response = new LinkedHashMap<>();
         response.put("url", url);
         response.put("prompt", prompt);
-        return ResultUtils.success(response);
+        Path img = downloadImage(url);
+        OcrResult result = ocr.getPlaceFromTicket(img);
+
+        if(result == null){
+            result = ocr.getPlaceFromImage(img);
+        }
+        if(result == null){
+            return null;
+        }
+        response.put("result",result.toString());
+        Map<String,String> params = new LinkedHashMap<>();
+        params.put("origin", request.getOriginPoint(caller));
+        params.put("destination", result.getOriginPoint(caller));
+        params.put("ak", BaiDuApiCaller.AK);
+        return getMapBaseResponse(
+                request.getWay(),
+                request.getStartPos(),
+                result.getStartPlace(),
+                params
+        );
 
     }
 
-    @Data
-    public class ImageRequest {
-        private String url;
-        private String userinput;
+
+
+    public static Path downloadImage(String url) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            ResponseBody body = response.body();
+            if (body != null) {
+                InputStream inputStream = body.byteStream();
+                Path imagePath = Files.createTempFile("image", ".jpg");
+                saveImage(inputStream, imagePath);
+                return imagePath;
+            } else {
+                System.out.println("Error: Response body is null.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-
-
+    private static void saveImage(InputStream inputStream, Path imagePath) {
+        try (OutputStream outputStream = new FileOutputStream(imagePath.toFile())) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            System.out.println("Image downloaded successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
