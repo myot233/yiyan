@@ -288,7 +288,7 @@ public class TrafficController {
         params.put("pluginDescription",detail.get("description_for_human").getAsString());
         params.put("pluginUrl",detail.get("legal_info_url").getAsString());
         params.put("prompt",PLUGIN_DESCRIPTION_PROMPT);
-        return ResultUtils.success(params,TransConstant.trainTicketSCREEN);
+        return ResultUtils.success(params);
     }
 
     /**
@@ -350,6 +350,12 @@ public class TrafficController {
         return ResultUtils.success(params,TransConstant.toHangzhouDongPlan);
     }
 
+    @PostMapping("/ask_traffic_problem")
+    public BaseResponse<Map<String,String>> askTrafficProblem(@RequestBody TrafficProblemRequest request) throws Exception {
+
+        Map<String,String> params = new LinkedHashMap<>();
+        return ResultUtils.success(params,TransConstant.trafficProblem);
+    }
 
 
     public static Path downloadImage(String url) {

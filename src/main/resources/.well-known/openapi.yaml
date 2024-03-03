@@ -76,6 +76,29 @@ paths:
         name: message
         type: string
 
+  /ask_traffic_problem:
+    post:
+      operationId: askTrafficProblem
+      description: 回答用户询问的交通问题
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/askTrafficProblem"
+      responses:
+        200:
+          description: 插件信息返回成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/messageResponse"
+      x-return-raw:
+        description: 标记当前API请求的结果是否经过大模型，当name的值不空时，从插件结果中获取具体字段，类型必须string，直接返回，而不经过大模型。
+        mediaType: application/json
+        name: message
+        type: string
+
   /get_description:
     post:
       operationId: getDescription
@@ -131,7 +154,13 @@ components:
           type: integer
           description: 0：时间最短1：不走高速,2：躲避拥堵,3：最短距离,4：花费最少,5：大路优先
 
-
+    askTrafficProblem:
+      type: object
+      required: [ problem ]
+      properties:
+        problem:
+          type: string
+          description: 交通信息相关的问题
 
     getImage:
       type: object
