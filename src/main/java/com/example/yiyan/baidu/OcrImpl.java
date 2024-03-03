@@ -1,6 +1,8 @@
 package com.example.yiyan.baidu;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import okhttp3.*;
@@ -156,13 +158,20 @@ public class OcrImpl implements OcrInterFace {
         }
         if (first.get("type").getAsString().equals("bus_ticket")) {
             JsonObject wordResult = first.getAsJsonObject("result");
-            return new OcrResult(
-                    getVal(wordResult, "Date") + getVal(wordResult, "Time"),
-                    null, //ocr 识别车票无法获取终止时间
-                    getVal(wordResult, "StartingStation"),//wordResult.get("starting_station").getAsString(),
-                    getVal(wordResult, "DestinationStation")//wordResult.get("destination_station").getAsString()
-            );
+            String date = getVal(wordResult, "Date");
+            String time = getVal(wordResult, "Time");
+            String startingStation = getVal(wordResult, "StartingStation");
+            String destinationStation = getVal(wordResult, "DestinationStation");
+
+            // Replace null values with "/"
+            date = (date != null) ? date : "/";
+            time = (time != null) ? time : "/";
+            startingStation = (startingStation != null) ? startingStation : "/";
+            destinationStation = (destinationStation != null) ? destinationStation : "/";
+
+            return new OcrResult(date + time, "/", startingStation, destinationStation);
         }
+
 
 
         return null;
@@ -176,6 +185,15 @@ public class OcrImpl implements OcrInterFace {
     }
 
     private static String getVal(JsonObject wordResult, String key) {
-        return wordResult.getAsJsonArray(key).get(0).getAsJsonObject().get("word").getAsString();
+        JsonArray jsonArray = wordResult.getAsJsonArray(key);
+        if (jsonArray != null && jsonArray.size() > 0) {
+            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+            JsonElement wordElement = jsonObject.get("word");
+            if (wordElement != null) {
+                return wordElement.getAsString();
+            }
+        }
+        return "/";
     }
+
 }

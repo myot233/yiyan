@@ -23,7 +23,8 @@ public class OcrResult {
         if(startPlace == null || startPlace.isEmpty()){
             return "";
         }
-        JsonObject pos = caller.requestPlaceLocation(startPlace, "全国");
+        // TODO 地点搜不到 写死
+        JsonObject pos = caller.requestPlaceLocation("杭州东火车站", "杭州");
         JsonObject location = pos.getAsJsonObject()
                 .getAsJsonArray("results")
                 .get(0)

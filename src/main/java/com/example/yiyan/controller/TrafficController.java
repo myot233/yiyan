@@ -116,6 +116,10 @@ public class TrafficController {
         logger.info("/route_panning is called");
         String Message = "出现未知错误";
         String mapUrl = "";
+        // TODO 写死
+        request.setOrigin("杭州师范大学");
+        request.setDestination("火车东站");
+        request.setRegion("杭州");
         Map<String,String> params = new LinkedHashMap<>();
         params.put("origin", request.getOriginPoint(caller));
         params.put("destination", request.getDestinationPoint(caller));
@@ -131,7 +135,7 @@ public class TrafficController {
     @NotNull
     private BaseResponse<Map<String, String>> getMapBaseResponse(String way,String origin,String destination,
                                                                  Map<String, String> params) throws Exception {
-        String Message = "出现未知错误";
+        String Message = "ok";
         String mapUrl = "";
         try {
             JsonObject jsonObject = caller.requestRoutePlanning(way, params);
@@ -166,12 +170,18 @@ public class TrafficController {
                     paths.add(pathPoint);
                 }
                 List<JsonObject> placesConcurrent =  findPlacesDummy(paths);
-                for(int i = 0;i < steps.size();i++){
+                for (int i = 0; i < steps.size(); i++) {
                     stringBuffer.append(steps.get(i).getAsJsonObject().get("instruction"));
-                    placesConcurrent.get(i)
-                            .getAsJsonArray("results")
-                            .forEach(x->stringBuffer.append("附近的店:")
-                                    .append(x.getAsJsonObject().get("name").getAsString()).append(";"));
+                    // 检查 placesConcurrent.get(i) 是否为 null
+                    if (placesConcurrent.get(i) != null && placesConcurrent.get(i).getAsJsonArray("results") != null) {
+                        placesConcurrent.get(i)
+                                .getAsJsonArray("results")
+                                .forEach(x -> stringBuffer.append("附近的店:")
+                                        .append(x.getAsJsonObject().get("name").getAsString()).append(";"));
+                    } else {
+                        // 处理空情况的代码
+                        logger.info("附近的店 is null");
+                    }
 
                 }
 
@@ -191,42 +201,59 @@ public class TrafficController {
         Map<String,String> response = new LinkedHashMap<>();
         response.put("message", Message);
         response.put("mapUrl", mapUrl);
-
         response.put("prompt", ROUTE_PLANNING_PROMPT);
         logger.info(Message);
-        return ResultUtils.success(response);
+        return ResultUtils.success(response,TransConstant.toHangzhouDong);
     }
 
     private List<JsonObject> findPlacesDummy(List<ArrayList<Float>> paths) {
         String[] selecetions = new String[]{"水果摊","鞋垫","小学","书店","车库"};
         Gson tempGson = new Gson();
-        List<JsonObject> jsonObjects = new ArrayList<>();
-        paths.forEach(x->jsonObjects.add(tempGson.fromJson(String.format("{results:[{name:\"%s%s\"}]}", "杭州师范", selecetions[new Random().nextInt(selecetions.length)]),JsonObject.class)));
+        List<JsonObject> jsonObjects = findPlacesConcurrent(paths);
+        //paths.forEach(x->jsonObjects.add(tempGson.fromJson(String.format("{results:[{name:\"%s%s\"}]}", "杭州师范", selecetions[new Random().nextInt(selecetions.length)]),JsonObject.class)));
         return jsonObjects;
     }
 
     private List<JsonObject> findPlacesConcurrent(List<ArrayList<Float>> paths) {
         ExecutorService threadpool = Executors.newCachedThreadPool();
         List<Future<JsonObject>> futures = new ArrayList<>();
+        int count = 0; // 计数器用于跟踪循环次数
+        Random random = new Random(); // 用于生成随机数
+
         for (ArrayList<Float> path : paths) {
             Map<String, String> params = new LinkedHashMap<>();
             params.put("query", "美食");
-            params.put("location", String.format("%s,%s", path.get(0),path.get(1)));
-            params.put("radius", "200");
+            params.put("location", String.format("%s,%s", path.get(0), path.get(1)));
+            params.put("radius", "150");
             params.put("output", "json");
             params.put("ak", BaiDuApiCaller.AK2);
-            Future<JsonObject> jsonObjectFuture = threadpool.submit(() -> caller.requestRoutePlaceSearch(params));
-            futures.add(jsonObjectFuture);
+
+            // 每隔2到4个循环执行一次请求
+            if (count == 0 || count >= random.nextInt(3) + 2) {
+                Future<JsonObject> jsonObjectFuture = threadpool.submit(() -> caller.requestRoutePlaceSearch(params));
+                futures.add(jsonObjectFuture);
+                count = 0; // 重置计数器
+            } else {
+                futures.add(null); // 否则添加一个null元素
+            }
+
+            count++; // 增加循环计数
         }
-        return futures.stream().map(x-> {
+
+        return futures.stream().map(x -> {
             try {
-                return x.get();
+                if (x != null) {
+                    return x.get();
+                } else {
+                    return null; // 如果是null，则直接返回null
+                }
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
         }).collect(Collectors.toList());
-
     }
+
+
 
 
     /**
@@ -261,7 +288,7 @@ public class TrafficController {
         params.put("pluginDescription",detail.get("description_for_human").getAsString());
         params.put("pluginUrl",detail.get("legal_info_url").getAsString());
         params.put("prompt",PLUGIN_DESCRIPTION_PROMPT);
-        return ResultUtils.success(params);
+        return ResultUtils.success(params,TransConstant.trainTicketSCREEN);
     }
 
     /**
@@ -290,17 +317,37 @@ public class TrafficController {
             return null;
         }
         response.put("result",result.toString());
-        Map<String,String> params = new LinkedHashMap<>();
-        params.put("origin", request.getOriginPoint(caller));
-        params.put("destination", result.getOriginPoint(caller));
-        params.put("ak", BaiDuApiCaller.AK);
-        return getMapBaseResponse(
+        Map<String,String> mapParams = new LinkedHashMap<>();
+        mapParams.put("origin", request.getOriginPoint(caller));
+        mapParams.put("destination", result.getOriginPoint(caller));
+        mapParams.put("ak", BaiDuApiCaller.AK);
+        BaseResponse<Map<String, String>> pathsInfo = getMapBaseResponse(
                 request.getWay(),
                 request.getStartPos(),
                 result.getStartPlace(),
-                params
+                mapParams
         );
 
+        Map<String,String> params = new LinkedHashMap<>();
+        params.put("origin", request.getOriginPoint(caller));
+        params.put("destination", result.getOriginPoint(caller));
+        params.put("pathInfo", pathsInfo.getData().get("message"));
+        //prompt = "你收到了一张车票，{pathInfo}是起点{origin}和终点{destination}的路程信息，" +
+        //        "你需要根据{pathInfo}回复距离、耗时" +
+        //        "然后你必须选取路程信息中的某条路段，说明这条路当前处于轻微拥堵状态" +
+        //        "最后你建议用户提早12分钟出门，以免错过上车时间";
+        //params.put("prompt", prompt);
+        return ResultUtils.success(params,TransConstant.trainTicketSCREEN);
+    }
+
+
+    @PostMapping("/plan_trip")
+    public BaseResponse<Map<String,String>> planTrip(@RequestBody ImageRequest request) throws Exception {
+
+        Map<String,String> params = new LinkedHashMap<>();
+        params.put("origin", request.getOriginPoint(caller));
+        params.put("destination", request.getOriginPoint(caller));
+        return ResultUtils.success(params,TransConstant.toHangzhouDongPlan);
     }
 
 

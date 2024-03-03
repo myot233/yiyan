@@ -2,17 +2,18 @@ version: 0.0.1
 examples:
       - context: # 对话历史
           - role: user
-            content: 我处在的城市为”杭州市“，我想从”钱王财富中心”到“农林大学”，我需要路程最短的方案
+#            content: 我处在的城市为”杭州市“，我想从”钱王财富中心”到“农林大学”，我需要路程最短的方案
+            content: 我驾车从杭州师范大学到火车东站需要多久
           - role: bot
             # 触发插件
             plugin:
               # 应当触发的接口operationId
               operationId: routePlanning
               # 思考过程，对触发有帮助
-              thoughts: 这是一个需要给用户规划路径方案的需求
+              thoughts: 这是一个需要给用户路径导航方案的需求
               requestArguments: 
-                origin: 钱王财富中心
-                destination: 农林大学
+                origin: 杭州师范大学
+                destination: 火车东站
                 region: 杭州市
                 tactics: 3
                 way: 0
@@ -27,7 +28,7 @@ examples:
             # 应当触发的接口getImage
             operationId: getImage
             # 思考过程，对触发有帮助
-            thoughts: 获取用户给的图像的URL,所有图片都应该调用这个操作
+            thoughts: 获取用户给的图像URL,对所有图片都应该调用这个操作，返回车票的详情
             requestArguments:
               url: https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
               userinput: 火车票的路径如下
@@ -45,3 +46,17 @@ examples:
               requestArguments:
                 url: https://pfst.cf2.poecdn.net/base/image/76352bc4a6e859769d160816dc56299d789e5f28254199de29eef115b6e579e6?w=800&h=952&pmaid=47613324
                 userinput: ""
+      - context: # 对话历史
+          - role: user
+            content: 请你帮我规划从杭州师范大学到火车东站的行程
+          - role: bot
+            plugin:
+              operationId: planTrip
+              # 思考过程，对触发有帮助
+              thoughts: 检索到命令中有”规划“关键词，帮助用户规划行程
+              requestArguments:
+                origin: 杭州师范大学
+                destination: 火车东站
+                region: 杭州市
+                tactics: 3
+                way: 0
